@@ -15,7 +15,7 @@ public class PlayerHealth2 : MonoBehaviour
     float currentShield = 0;
     public int maxShield = 25;
     float regenShieldTimer = 0.0f;
-    public float regenShieldTimerMax = 1.0f;
+    public float regenShieldTimerMax = 10.0f;
 
     public GameObject explosionParticles;
 
@@ -52,7 +52,7 @@ public class PlayerHealth2 : MonoBehaviour
         if (currentShield < maxShield && regenShieldTimer <= 0)
         {
             // Increase the shield.
-            currentShield += Time.deltaTime * 5;
+            currentShield += Time.deltaTime * 2;
 
             // Update the Simple Health Bar with the new Shield values.
             shieldBar.UpdateBar(currentShield, maxShield);
