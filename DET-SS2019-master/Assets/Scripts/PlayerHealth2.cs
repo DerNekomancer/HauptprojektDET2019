@@ -15,7 +15,7 @@ public class PlayerHealth2 : MonoBehaviour
     float currentShield = 0;
     public int maxShield = 25;
     float regenShieldTimer = 0.0f;
-    public float regenShieldTimerMax = 1.0f;
+    public float regenShieldTimerMax = 10.0f;
 
     public GameObject explosionParticles;
 
@@ -25,11 +25,11 @@ public class PlayerHealth2 : MonoBehaviour
     void Awake()
     {
         // If the instance variable is already assigned, then there are multiple player health scripts in the scene. Inform the user.
-        if (instance != null)
-            Debug.LogError("There are multiple instances of the Player Health script. Assigning the most recent one to Instance.");
+        //if (instance != null)
+          //  Debug.LogError("There are multiple instances of the Player Health script. Assigning the most recent one to Instance.");
 
         // Assign the instance variable as the Player Health script on this object.
-        instance = GetComponent<PlayerHealth2>();
+        //instance = GetComponent<PlayerHealth2>();
     }
 
     // Start is called before the first frame update
@@ -41,7 +41,8 @@ public class PlayerHealth2 : MonoBehaviour
 
         // Update the Simple Health Bar with the updated values of Health and Shield.
         healthBar.UpdateBar(currentHealth, maxHealth);
-        shieldBar.UpdateBar(currentShield, maxShield);
+        //shieldBar.UpdateBar(currentShield, maxShield);
+
     }
 
     // Update is called once per frame
@@ -51,7 +52,7 @@ public class PlayerHealth2 : MonoBehaviour
         if (currentShield < maxShield && regenShieldTimer <= 0)
         {
             // Increase the shield.
-            currentShield += Time.deltaTime * 5;
+            currentShield += Time.deltaTime * 2;
 
             // Update the Simple Health Bar with the new Shield values.
             shieldBar.UpdateBar(currentShield, maxShield);
