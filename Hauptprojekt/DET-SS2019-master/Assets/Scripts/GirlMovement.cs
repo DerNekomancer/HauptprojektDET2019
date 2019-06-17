@@ -13,6 +13,8 @@ public class GirlMovement : MonoBehaviour
     public Rigidbody rigid;
     public GameObject explosion;
     public bool VargirlIsAlive = true;
+    public Transform target;
+    public NavMeshAgent agent;
 
     // Start is called before the first frame update
     void Start()
@@ -98,7 +100,7 @@ public class GirlMovement : MonoBehaviour
                 anim.Play("FreeVoxelGirl-jump");
                 Debug.Log("Jump");
                 VargirlIsAlive = false;
-             Debug.Log(VargirlIsAlive);
+                Debug.Log(VargirlIsAlive);
                 anim.SetBool("girlIsAlive", false);
                 anim.SetBool("laufen", false);
                 //anim.Play("FreeVoxelGirl-idle");

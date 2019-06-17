@@ -18,6 +18,6 @@ public class GirlNavMovement : MonoBehaviour
     void Update()
     {
         agent.SetDestination(target.position);
-        //agent.st
+        
     }
 }
