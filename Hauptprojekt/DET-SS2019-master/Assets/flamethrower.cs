@@ -26,7 +26,7 @@ public class flamethrower : MonoBehaviour
         }
         
     }*/ 
-    private void OnParticleCollision(GameObject other)
+    /*private void OnParticleCollision(GameObject other)
     {
         if (other.gameObject.tag == "Player")
         {
@@ -34,5 +34,5 @@ public class flamethrower : MonoBehaviour
             Debug.Log("Damage taken");
 
         }
-    }
+    }*/
 }

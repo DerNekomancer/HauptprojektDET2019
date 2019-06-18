@@ -13,13 +13,15 @@ public class dragon : MonoBehaviour
     public GameObject head;
     int counter = 0;
     int waitTime = 2;
-    GameObject instantiatedFlamebreath;
+    //GameObject instantiatedFlamebreath;
     int maxCounter = 1;
-    
+    public ParticleSystem dragonFirestream;
+
     // Start is called before the first frame update
     void Start()
     {
-       // anim.SetBool("Fly", true);
+        // anim.SetBool("Fly", true);
+        dragonFirestream.emissionRate = 0.0f;
     }
 
     // Update is called once per frame
@@ -36,19 +38,20 @@ public class dragon : MonoBehaviour
                     anim.SetBool("flyAttack", true);
                     if (anim.GetBool("flyAttack") == true)
                     {
-                        if (instantiatedFlamebreath == null)
+                        dragonFirestream.emissionRate = 50.0f;
+                        /*if (instantiatedFlamebreath == null)
                         {
                             
-                            instantiatedFlamebreath = Instantiate(flamethrow, headvector, transform.rotation, head.transform);
+                            //instantiatedFlamebreath = Instantiate(flamethrow, headvector, transform.rotation, head.transform);
                             Debug.Log("instantiated flamebreath");
                             counter++;
                             Debug.Log("counter: " + counter);
-                        }
+                        } */
                     }
                     
                     if (Input.GetKeyDown(KeyCode.M))
                     {
-                        Destroy(instantiatedFlamebreath);
+                        dragonFirestream.emissionRate = 0.0f;
                     }
  
                 }
@@ -57,14 +60,15 @@ public class dragon : MonoBehaviour
                  
                     if (Input.GetKeyDown(KeyCode.M))
                     {
-                        Destroy(instantiatedFlamebreath);
+                        dragonFirestream.emissionRate = 0.0f;
                     }
                     
                     anim.SetBool("flyAttack", false);
-                    if (counter >= 1)
-                    {
-                        if (instantiatedFlamebreath != null) {  Destroy(instantiatedFlamebreath); }
-                    }
+                    //if (counter >= 1)
+                    //{
+                        dragonFirestream.emissionRate = 0.0f;
+                        //if (instantiatedFlamebreath != null) {  Destroy(instantiatedFlamebreath); }
+                    //}
                    
 
                 }

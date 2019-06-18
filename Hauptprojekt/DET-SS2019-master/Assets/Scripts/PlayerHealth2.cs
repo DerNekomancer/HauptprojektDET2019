@@ -172,4 +172,8 @@ public class PlayerHealth2 : MonoBehaviour
         // Return back to the original position.
         Camera.main.transform.position = origPos;
     }
+    public float getHP()
+    {
+        return currentHealth;
+    }
 }

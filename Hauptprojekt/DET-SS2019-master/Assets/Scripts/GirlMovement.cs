@@ -15,6 +15,7 @@ public class GirlMovement : MonoBehaviour
     public bool VargirlIsAlive = true;
     public Transform target;
     public NavMeshAgent agent;
+    public int hp = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -77,6 +78,15 @@ public class GirlMovement : MonoBehaviour
         //if (collision
         //rigid.velocity = new Vector3(0, 3, 0);
     }
+    private void OnParticleCollision(GameObject other)
+    {
+        this.hp -= 1;
+        Debug.Log(hp);
+        if(hp <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     public float blastRadius = 3.0f;
  
@@ -107,7 +117,7 @@ public class GirlMovement : MonoBehaviour
                 //Destroy(gameObject);
             }
 
-        //}
+        
 
     }
 }
