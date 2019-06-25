@@ -12,6 +12,7 @@ public class World : MonoBehaviour
 	public GameObject player;
     public GameObject dragon2;
     public GameObject girl;
+    public GameObject girl2;
     public Material textureAtlas;
 	public Material fluidTexture;
 	public static int columnHeight = 16;
@@ -251,6 +252,11 @@ public class World : MonoBehaviour
         girl.SetActive(true);
         Vector3 temp2 = new Vector3(10f, 83f, -7f);
         girl.transform.position = temp2;
+        
+        //add girl2
+        girl2.SetActive(true);
+        Vector3 temp3 = new Vector3(11f, 84f, -7f);
+        girl2.transform.position = temp3;
 
 
     }

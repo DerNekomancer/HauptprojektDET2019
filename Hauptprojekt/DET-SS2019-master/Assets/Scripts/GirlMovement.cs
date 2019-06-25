@@ -6,7 +6,6 @@ using  UnityEngine.AI;
 public class GirlMovement : MonoBehaviour
 {
     public Transform Player;
-    
     public float moveSpeed = 0.2f;
     public float rotationspeed = 0.2f;
     public Animator anim;
@@ -84,7 +83,9 @@ public class GirlMovement : MonoBehaviour
         Debug.Log(hp);
         if(hp <= 0)
         {
-            Destroy(gameObject);
+            VargirlIsAlive = false;
+            anim.SetBool("girlIsAlive", false);
+            //Destroy(gameObject); Notlösung zum verschwinden.
         }
     }
 
