@@ -40,8 +40,10 @@ public class dragon : MonoBehaviour
     {
         if (isAlive)
         {
-
-
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                Instantiate(girl, transform.position, Quaternion.identity, transform);
+            }
             if (Vector3.Distance(transform.position, Player.position) < 20)
             {
                 if (Vector3.Distance(transform.position, Player.position) < 3)
@@ -124,10 +126,7 @@ public class dragon : MonoBehaviour
                     anim.SetBool("isIdle", true);
                 }
             }
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                Instantiate(girl, transform.position, Quaternion.identity, transform);
-            }
+           
 
         } 
         else
