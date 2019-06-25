@@ -265,12 +265,24 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void OnParticleCollision(GameObject other)
         {
-            
             if (other.tag != "Player")
             {
-                Debug.Log("Player hit");
-                Player.GetComponent<PlayerHealth2>().TakeDamage(10);
-                Debug.Log(Player.GetComponent<PlayerHealth2>().getHP().ToString());
+                if (other.tag == "Dragonfire")
+                {
+                    Debug.Log("Player hit by drake");
+                    Player.GetComponent<PlayerHealth2>().TakeDamage(10);
+                    Debug.Log(Player.GetComponent<PlayerHealth2>().getHP().ToString());
+                }
+                if (other.tag == "KadukiBlack")
+                {
+                    Debug.Log("Player hit by black kaduki");
+                    Player.GetComponent<PlayerHealth2>().TakeDamage(5);
+
+                }
+            }
+            if(other.tag == "Player")
+            {
+                Debug.Log("tag == player");
             }
         }
 

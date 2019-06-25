@@ -12,7 +12,8 @@ public class GirlNavMovement : MonoBehaviour
     public Rigidbody rigid;
     public bool VargirlIsAlive = true;
     public int hp = 10;
-    public GameObject Iceshot;
+    public ParticleSystem Iceshot;
+    public ParticleSystem icelance;
     float fireRate = 3.0f;
     float nextFire = 0.0f;
 
@@ -23,6 +24,7 @@ public class GirlNavMovement : MonoBehaviour
         anim.SetBool("death", false);
         anim.SetBool("girlIsAlive", true);
         anim.SetBool("sidewalk", false);
+        Iceshot.emissionRate = 1.0f;
 
     }
 
@@ -50,6 +52,7 @@ public class GirlNavMovement : MonoBehaviour
             if (Vector3.Distance(transform.position, Player.position) >= 3 && Vector3.Distance(transform.position, Player.position) < 5)
             {
                 //anim.SetBool("laufen", false);
+                //Iceshot.emissionRate = 1.0f;
                 anim.SetBool("sidewalk", true);
                 transform.Translate(5f * moveSpeed * Time.deltaTime, 0f, 0f);
                 if (Time.time > nextFire)
@@ -58,6 +61,10 @@ public class GirlNavMovement : MonoBehaviour
                     //GameObject.Instantiate(Iceshot, transform.position, Quaternion.identity, transform);
                 }
             }
+        }
+        else
+        {
+           // Iceshot.emissionRate = 0.0f;
         }
 
     }
@@ -69,7 +76,10 @@ public class GirlNavMovement : MonoBehaviour
         if (hp <= 0)
         {
             VargirlIsAlive = false;
+            Iceshot.emissionRate = 0.0f;
+            icelance.emissionRate = 0.0f;
             anim.SetBool("girlIsAlive", false);
+            anim.SetBool("laufen", false);
         }
     }
 }

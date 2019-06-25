@@ -85,6 +85,7 @@ public class GirlMovement : MonoBehaviour
         {
             VargirlIsAlive = false;
             anim.SetBool("girlIsAlive", false);
+            anim.SetBool("laufen", false);
             //Destroy(gameObject); Notlösung zum verschwinden.
         }
     }
@@ -114,6 +115,7 @@ public class GirlMovement : MonoBehaviour
                 Debug.Log(VargirlIsAlive);
                 anim.SetBool("girlIsAlive", false);
                 anim.SetBool("laufen", false);
+                   Debug.Log("bool laufen: " + anim.GetBool("laufen"));
                 //anim.Play("FreeVoxelGirl-idle");
                 //Destroy(gameObject);
             }
