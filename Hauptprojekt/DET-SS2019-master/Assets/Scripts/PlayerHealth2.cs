@@ -118,7 +118,7 @@ public class PlayerHealth2 : MonoBehaviour
         StartCoroutine("Invulnerablilty");
 
         // Shake the camera for a moment to make each hit more dramatic.
-        //StartCoroutine("ShakeCamera");
+        StartCoroutine("ShakeCamera");
 
         // Update the Health and Shield status bars.
         healthBar.UpdateBar(currentHealth, maxHealth);
@@ -157,7 +157,7 @@ public class PlayerHealth2 : MonoBehaviour
     {
         // Store the original position of the camera.
         Vector2 origPos = Camera.main.transform.position;
-        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime * 1.0f)
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime * 2.0f)
         {
             // Create a temporary vector2 with the camera's original position modified by a random distance from the origin.
             Vector2 tempVec = origPos + Random.insideUnitCircle;
