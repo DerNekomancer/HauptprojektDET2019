@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +6,6 @@ using UnityEngine;
 public class dragon : MonoBehaviour
 {
     public Transform Player;
-    public GameObject girl;
     public Animator anim;
     float moveSpeed = 0.2f;
     int timePassed = 0;
@@ -25,14 +23,11 @@ public class dragon : MonoBehaviour
     public bool phase1,phase2,phase3;
     public int dragonDamage;
 
+
     // Start is called before the first frame update
     void Start()
     {
-         anim.SetBool("Fly", true);
-        isAlive = true;
-        dragonCurrentHp = dragonMaxHP;
-        dragonHealthbar.UpdateBar(dragonCurrentHp,dragonMaxHP);
-        Debug.Log(dragonCurrentHp);
+        // anim.SetBool("Fly", true);
         dragonFirestream.emissionRate = 0.0f;
         phase1 = true;
         phase2 = false;
@@ -45,8 +40,9 @@ public class dragon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isAlive)
+        if(Vector3.Distance(transform.position, Player.position) < 20)
         {
+
             if (phase1)
             {
 
@@ -435,5 +431,7 @@ public class dragon : MonoBehaviour
     public void dragonTakeDamage(int amount)
     {
         dragonCurrentHp -= amount;
+
+            
     }
 }

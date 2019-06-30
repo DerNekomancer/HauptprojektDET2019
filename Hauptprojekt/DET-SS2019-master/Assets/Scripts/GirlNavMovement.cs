@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class GirlNavMovement : MonoBehaviour
 {
+
     public Transform Player;
     public float moveSpeed = 0.2f;
     public float rotationspeed = 0.2f;
@@ -17,9 +18,13 @@ public class GirlNavMovement : MonoBehaviour
     float fireRate = 3.0f;
     float nextFire = 0.0f;
 
+    
+
+
     // Start is called before the first frame update
     void Start()
     {
+
         anim.SetBool("laufen", false);
         anim.SetBool("death", false);
         anim.SetBool("girlIsAlive", true);
@@ -27,11 +32,15 @@ public class GirlNavMovement : MonoBehaviour
         iceshot.emissionRate = 0.0f;
         icelance.emissionRate = 0.0f;
 
+
+        
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (VargirlIsAlive)
         {
             if (Vector3.Distance(transform.position, Player.position) < 20)
@@ -84,5 +93,9 @@ public class GirlNavMovement : MonoBehaviour
             anim.SetBool("girlIsAlive", false);
             anim.SetBool("laufen", false);
         }
+
+        
+        
+
     }
 }
