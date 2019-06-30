@@ -267,7 +267,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             if (other.tag != "Player")
             {
-                if (other.tag == "Dragonfire")
+                if (other.tag == "dragonFire")
                 {
                     Debug.Log("Player hit by drake");
                     Player.GetComponent<PlayerHealth2>().TakeDamage(10);
