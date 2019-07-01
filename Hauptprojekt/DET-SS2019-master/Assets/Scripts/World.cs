@@ -250,9 +250,9 @@ public class World : MonoBehaviour
 
 
         //add girl
-        girl.SetActive(true);
+        /* girl.SetActive(true);
         Vector3 temp2 = new Vector3(10f, 83f, -7f);
-        girl.transform.position = temp2;
+        girl.transform.position = temp2;*/
 
 
     }

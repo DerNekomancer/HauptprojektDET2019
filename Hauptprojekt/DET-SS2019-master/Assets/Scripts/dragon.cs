@@ -16,12 +16,20 @@ public class dragon : MonoBehaviour
     //GameObject instantiatedFlamebreath;
     int maxCounter = 1;
     public ParticleSystem dragonFirestream;
-    public int dragonMaxHP = 10000;
+    public int dragonMaxHP = 20000;
     public int dragonCurrentHp;
     public SimpleHealthBar dragonHealthbar;
     public bool isAlive = true;
     public bool phase1,phase2,phase3;
     public int dragonDamage;
+    public GameObject girl;
+    public float lerpSpeed;
+    float oldyPos;
+    public int KadukiMaxSpawn;
+    public int KadukiSpawnCounter;
+    int alternativeCounter;
+    public bool phase2Finished;
+    Vector3 wantedPosition2;
 
 
     // Start is called before the first frame update
@@ -32,17 +40,28 @@ public class dragon : MonoBehaviour
         phase1 = true;
         phase2 = false;
         phase3 = false;
+        isAlive = true;
         dragonDamage = 10;
-        
-        
+        anim.SetBool("dragonIsAlive", true);
+        dragonMaxHP = 10000;
+        dragonCurrentHp = dragonMaxHP;
+        dragonHealthbar.UpdateBar(dragonMaxHP, dragonMaxHP);
+        oldyPos = (transform.position.y);
+        KadukiMaxSpawn = 2;
+        KadukiSpawnCounter = 0;
+        alternativeCounter = 0;
+        phase2Finished = false;
+        wantedPosition2 = new Vector3(9f, 81f, -7f);
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Vector3.Distance(transform.position, Player.position) < 20)
+        if(isAlive)
         {
-
+            
             if (phase1)
             {
 
@@ -106,7 +125,7 @@ public class dragon : MonoBehaviour
                         if (Vector3.Distance(transform.position, Player.position) <= 15 && Vector3.Distance(transform.position, Player.position) > 7)
                         {
                             transform.Translate(0f, 0f, 5f * moveSpeed * Time.deltaTime);
-                            this.GetComponent<BoxCollider>().transform.Translate(0f, 0f, 5f * moveSpeed * Time.deltaTime);
+                            //this.GetComponent<BoxCollider>().transform.Translate(0f, 0f, 5f * moveSpeed * Time.deltaTime);
                         }
 
                     }
@@ -138,103 +157,88 @@ public class dragon : MonoBehaviour
             }
             else if(phase2)
             {
+                dragonFirestream.emissionRate = 0.0f;
                 resetAnimBool();
-
-                Debug.Log("phase 2 entered");
-                 Renderer rend = GetComponent<Renderer>();                
-                 rend.material.SetColor("_Color", Color.yellow);
-                 rend.materials[1].color = Color.black;// ("secondaryColor", Color.red);
-                if (Input.GetKeyDown(KeyCode.X))
+                
+                //Debug.Log("phase 2 entered");
+                Renderer rend = GetComponent<Renderer>();                
+                rend.material.SetColor("_Color", Color.yellow);
+                rend.materials[1].color = Color.black;// ("secondaryColor", Color.red);
+                
+                
+                lerpSpeed = 1.5f;
+                if (!phase2Finished && transform.position.y < oldyPos + 1 )
                 {
-                    Instantiate(girl, transform.position, Quaternion.identity, transform);
+                    Vector3 wantedPosition = new Vector3(transform.position.x, transform.position.y + 3, transform.position.z);
+                    transform.position = Vector3.Lerp(transform.position, wantedPosition, Time.deltaTime * lerpSpeed);
                 }
-                if (Vector3.Distance(transform.position, Player.position) < 20)
+                else
                 {
-                    if (Vector3.Distance(transform.position, Player.position) < 3)
+                    Debug.Log("Kek before gamefind");
+                    Debug.Log(GameObject.FindGameObjectsWithTag("RedKaduki").Length);
+                    if (alternativeCounter < 1)
                     {
-                        //transform.position = Vector2.MoveTowards(transform.position, Player.position, -1 * 2 * Time.deltaTime);
-                        transform.Translate(1f, 1f, -1 * 5f * moveSpeed * Time.deltaTime);
-                        this.GetComponent<BoxCollider>().transform.Translate(0f, 0f, -1 * 5f * moveSpeed * Time.deltaTime);
 
-                    }
-                    Vector3 headvector = head.transform.position;
-                    transform.LookAt(Player);
-                    if (anim.GetBool("isIdle") == false)             //flying
-                    {
-                        if (Vector3.Distance(transform.position, Player.position) < 6)
+
+                        if (GameObject.FindGameObjectsWithTag("RedKaduki").Length.Equals(1))
                         {
-                            anim.SetBool("flyAttack", true);
-                            if (anim.GetBool("flyAttack") == true)
+                            Debug.Log("Kek");
+                            for (int i = 0; i < KadukiMaxSpawn; i++)
                             {
-                                dragonFirestream.emissionRate = 50.0f;
-                                /*if (instantiatedFlamebreath == null)
-                                {
-                            
-                                    //instantiatedFlamebreath = Instantiate(flamethrow, headvector, transform.rotation, head.transform);
-                                    Debug.Log("instantiated flamebreath");
-                                    counter++;
-                                    Debug.Log("counter: " + counter);
-                                } */
+                                Instantiate(girl, transform.position, transform.rotation, transform);
+                                KadukiSpawnCounter++;
+                                Debug.Log("kadukispawncounter: " + KadukiSpawnCounter);
+
                             }
+                            alternativeCounter++;
+                            Debug.Log("alternative counter: " +alternativeCounter);
 
-                            if (Input.GetKeyDown(KeyCode.M))
-                            {
-                                dragonFirestream.emissionRate = 0.0f;
-                            }
+
 
                         }
-                        if (Vector3.Distance(transform.position, Player.position) > 10)
+                        else
                         {
-
-                            if (Input.GetKeyDown(KeyCode.M))
-                            {
-                                dragonFirestream.emissionRate = 0.0f;
-                            }
-
-                            anim.SetBool("flyAttack", false);
-                            //if (counter >= 1)
-                            //{
-                            dragonFirestream.emissionRate = 0.0f;
-                            //if (instantiatedFlamebreath != null) {  Destroy(instantiatedFlamebreath); }
-                            //}
-
-
+                           
+                            Debug.Log("Not length 1");
                         }
-                        if (Vector3.Distance(transform.position, Player.position) <= 15 && Vector3.Distance(transform.position, Player.position) > 7)
-                        {
-                            transform.Translate(0f, 0f, 5f * moveSpeed * Time.deltaTime);
-                            this.GetComponent<BoxCollider>().transform.Translate(0f, 0f, 5f * moveSpeed * Time.deltaTime);
-                        }
-
                     }
-                    else                                             //on the ground
+                    else
                     {
-                        if (Vector3.Distance(transform.position, Player.position) < 8)
-                        {
-                            anim.SetBool("standAttack", true);
-                            anim.SetBool("walking", false);
-                        }
-                        if (Vector3.Distance(transform.position, Player.position) <= 15 && Vector3.Distance(transform.position, Player.position) > 7)
-                        {
-                            anim.SetBool("walking", true);
-                            transform.Translate(0f, 0f, 5f * moveSpeed * Time.deltaTime);
-                            this.GetComponent<BoxCollider>().transform.Translate(Vector3.down * Time.deltaTime * 5);
-                        }
+                        phase2Finished = true;
+                        transform.position = Vector3.Lerp(transform.position, wantedPosition2, Time.deltaTime * lerpSpeed);
+
                     }
-                    if (Input.GetKeyDown(KeyCode.P))
-                    {
-                        anim.SetBool("isIdle", false);
-                    }
-                    else if (Input.GetKeyDown(KeyCode.O))
-                    {
-                        anim.SetBool("isIdle", true);
-                    }
+
+
+                    //while (KadukiSpawnCounter < 3)
+                    // {
+
+
+                    /* while (GameObject.FindGameObjectsWithTag("RedKaduki").Length.Equals(0))
+                     {
+                         Debug.Log("Spawning kadukis");
+                         Instantiate(girl, transform.position, transform.rotation, transform);
+
+
+                     }
+
+                     KadukiSpawnCounter++;
+                     Debug.Log("Kaduki Spawn Counter: " + KadukiSpawnCounter); */
+
+                    // }
+                    //Vector3 wantedPosition2 = new Vector3(transform.position.x, transform.position.y -3 , transform.position.z);
+                    //transform.position = Vector3.Lerp(transform.position, wantedPosition2, Time.deltaTime * lerpSpeed);
+
+                    /* if (transform.position.Equals(wantedPosition2))
+                     {
+                         phase2 = false;
+                         phase3 = true;
+                     } */
                 }
-
-
-
-
+                    
             }
+               
+            
             else if(phase3)
             {
                 resetAnimBool();

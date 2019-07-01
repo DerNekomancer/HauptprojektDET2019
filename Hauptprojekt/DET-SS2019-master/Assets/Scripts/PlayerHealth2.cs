@@ -118,7 +118,7 @@ public class PlayerHealth2 : MonoBehaviour
         StartCoroutine("Invulnerablilty");
 
         // Shake the camera for a moment to make each hit more dramatic.
-        StartCoroutine("ShakeCamera");
+        //StartCoroutine("ShakeCamera");
 
         // Update the Health and Shield status bars.
         healthBar.UpdateBar(currentHealth, maxHealth);

@@ -255,7 +255,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 return;
             }
-            body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
+            //body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
             if(hit.collider.tag == "dragonFire")
             {
                 Debug.Log("player hit controllercollider");
@@ -265,23 +265,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void OnParticleCollision(GameObject other)
         {
-            Debug.Log("Player hit");
-            if (other.name == "FlameThrowerDragon")
+            
+            if (other.tag != "Player")
             {
-<<<<<<< HEAD
-                if (other.tag == "dragonFire")
-                {
-                    Debug.Log("Player hit by drake");
-                    Player.GetComponent<PlayerHealth2>().TakeDamage(10);
-                    Debug.Log(Player.GetComponent<PlayerHealth2>().getHP().ToString());
-                }
-                if (other.tag == "KadukiBlack")
-                {
-                    Debug.Log("Player hit by black kaduki");
-                    Player.GetComponent<PlayerHealth2>().TakeDamage(5);
-
-
-                Debug.Log(this.GetComponent<PlayerHealth2>().getHP().ToString());
+                Debug.Log("Player hit");
+                Player.GetComponent<PlayerHealth2>().TakeDamage(10);
+                Debug.Log(Player.GetComponent<PlayerHealth2>().getHP().ToString());
             }
         }
 

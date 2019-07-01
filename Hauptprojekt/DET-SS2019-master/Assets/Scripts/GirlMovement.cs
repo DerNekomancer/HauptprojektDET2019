@@ -16,6 +16,7 @@ public class GirlMovement : MonoBehaviour
     public Transform target;
     public NavMeshAgent agent;
     public int hp = 10;
+    public int instanceAmount = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -23,12 +24,18 @@ public class GirlMovement : MonoBehaviour
         anim.SetBool("laufen", false);
         anim.SetBool("death", false);
         anim.SetBool("girlIsAlive", true);
+        instanceAmount += 1;
+        Debug.Log(instanceAmount);
 
     }
 
     // Update is called once per frame
     void Update()
     {
+       /* if(transform.position.y <)
+        {
+            Destroy(gameObject);
+        } */
         if (VargirlIsAlive)
         {
             if (anim.GetBool("death") == true)
