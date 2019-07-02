@@ -30,6 +30,7 @@ public class dragon : MonoBehaviour
     int alternativeCounter;
     public bool phase2Finished;
     Vector3 wantedPosition2;
+    public GameObject dragonHead;
 
 
     // Start is called before the first frame update
@@ -47,11 +48,12 @@ public class dragon : MonoBehaviour
         dragonCurrentHp = dragonMaxHP;
         dragonHealthbar.UpdateBar(dragonMaxHP, dragonMaxHP);
         oldyPos = (transform.position.y);
-        KadukiMaxSpawn = 2;
+        KadukiMaxSpawn = 1;
         KadukiSpawnCounter = 0;
         alternativeCounter = 0;
         phase2Finished = false;
         wantedPosition2 = new Vector3(9f, 81f, -7f);
+
 
 
     }
@@ -72,6 +74,13 @@ public class dragon : MonoBehaviour
                 }
                 if (Vector3.Distance(transform.position, Player.position) < 20)
                 {
+                    if (transform.position.x.Equals(Player.transform.position.x+3)|| transform.position.x.Equals(Player.transform.position.x - 3))
+                    {
+                        Debug.Log("ich steh scheiße");
+                        Vector3 wantedPosition3 = new Vector3(transform.position.x + 2, transform.position.y, transform.position.z);
+                        //transform.position = Vector3.Lerp(transform.position, wantedPosition3, Time.deltaTime * lerpSpeed);
+                        transform.position += Vector3.back * Time.deltaTime;
+                    }
                     if (Vector3.Distance(transform.position, Player.position) < 3)
                     {
                         //transform.position = Vector2.MoveTowards(transform.position, Player.position, -1 * 2 * Time.deltaTime);
@@ -166,7 +175,7 @@ public class dragon : MonoBehaviour
                 rend.materials[1].color = Color.black;// ("secondaryColor", Color.red);
                 
                 
-                lerpSpeed = 1.5f;
+                lerpSpeed = 0.5f;
                 if (!phase2Finished && transform.position.y < oldyPos + 1 )
                 {
                     Vector3 wantedPosition = new Vector3(transform.position.x, transform.position.y + 3, transform.position.z);
@@ -178,23 +187,18 @@ public class dragon : MonoBehaviour
                     Debug.Log(GameObject.FindGameObjectsWithTag("RedKaduki").Length);
                     if (alternativeCounter < 1)
                     {
-
-
                         if (GameObject.FindGameObjectsWithTag("RedKaduki").Length.Equals(1))
                         {
                             Debug.Log("Kek");
                             for (int i = 0; i < KadukiMaxSpawn; i++)
                             {
-                                Instantiate(girl, transform.position, transform.rotation, transform);
+                                Instantiate(girl, dragonHead.transform.position, transform.rotation, dragonHead.transform);
                                 KadukiSpawnCounter++;
                                 Debug.Log("kadukispawncounter: " + KadukiSpawnCounter);
 
                             }
                             alternativeCounter++;
                             Debug.Log("alternative counter: " +alternativeCounter);
-
-
-
                         }
                         else
                         {
@@ -204,10 +208,16 @@ public class dragon : MonoBehaviour
                     }
                     else
                     {
+                        transform.position = Vector3.Lerp(transform.position, wantedPosition2, Time.deltaTime * 0.5f);
                         phase2Finished = true;
-                        transform.position = Vector3.Lerp(transform.position, wantedPosition2, Time.deltaTime * lerpSpeed);
-
+                        Debug.Log(phase3);
+                        phase2 = false;
+                        phase3 = true;
+                        Debug.Log(phase3);
                     }
+                    
+
+
 
 
                     //while (KadukiSpawnCounter < 3)
@@ -235,14 +245,14 @@ public class dragon : MonoBehaviour
                          phase3 = true;
                      } */
                 }
-                    
+
             }
                
             
             else if(phase3)
             {
                 resetAnimBool();
-
+                
                 Debug.Log("phase 3 entered");
                 Renderer rend = GetComponent<Renderer>();
                 rend.material.SetColor("_Color", Color.yellow);
@@ -253,7 +263,14 @@ public class dragon : MonoBehaviour
                 }
                 if (Vector3.Distance(transform.position, Player.position) < 20)
                 {
-                    if (Vector3.Distance(transform.position, Player.position) < 3)
+                    if(transform.position.x.Equals(Player.transform.position.x))
+                    {
+                        Debug.Log("ich steh scheiße,phase 3");
+                        Vector3 wantedPosition3 = new Vector3(transform.position.x+2,transform.position.y,transform.position.z); 
+                        //transform.position = Vector3.Lerp(transform.position, wantedPosition3, Time.deltaTime * lerpSpeed);
+                        transform.position += Vector3.back * Time.deltaTime;
+                    }
+                    if (Vector3.Distance(transform.position, Player.position) < 2)
                     {
                         //transform.position = Vector2.MoveTowards(transform.position, Player.position, -1 * 2 * Time.deltaTime);
                         transform.Translate(1f, 1f, -1 * 5f * moveSpeed * Time.deltaTime);
@@ -264,7 +281,7 @@ public class dragon : MonoBehaviour
                     transform.LookAt(Player);
                     if (anim.GetBool("isIdle") == false)             //flying
                     {
-                        if (Vector3.Distance(transform.position, Player.position) < 6)
+                        if (Vector3.Distance(transform.position, Player.position) < 4)
                         {
                             anim.SetBool("flyAttack", true);
                             if (anim.GetBool("flyAttack") == true)
@@ -381,7 +398,13 @@ public class dragon : MonoBehaviour
             }
             else if (phase2)
             {
-                if (dragonCurrentHp >= 3333)
+                if(alternativeCounter >= 3)
+                {
+                    phase2 = false;
+                    phase3 = true;
+                    
+                }
+                /*if (dragonCurrentHp >= 3333)
                 {
                     Debug.Log("Dragon hit");
                     dragonTakeDamage(25);
@@ -394,7 +417,7 @@ public class dragon : MonoBehaviour
                 {
                     phase2 = false;
                     phase3 = true;
-                }
+                } */
             }
             else if(phase3)
             {
@@ -425,7 +448,7 @@ public class dragon : MonoBehaviour
     
     public int getDamage()
     {
-        return dragonDamage;
+        return this.dragonDamage;
     }
     public void setDamage(int dmg)
     {

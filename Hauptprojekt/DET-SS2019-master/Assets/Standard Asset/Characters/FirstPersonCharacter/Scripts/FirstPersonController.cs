@@ -43,6 +43,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private AudioSource m_AudioSource;
         public Transform Player;
         String hitpointsPlayer;
+        public GameObject dragon;
 
         // Use this for initialization
         private void Start()
@@ -269,8 +270,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (other.tag != "Player")
             {
                 Debug.Log("Player hit");
-                Player.GetComponent<PlayerHealth2>().TakeDamage(10);
+                
+                Player.GetComponent<PlayerHealth2>().TakeDamage(dragon.GetComponent<dragon>().getDamage());
                 Debug.Log(Player.GetComponent<PlayerHealth2>().getHP().ToString());
+                
             }
         }
 

@@ -31,6 +31,7 @@ public class GirlNavMovement : MonoBehaviour
         anim.SetBool("sidewalk", false);
         iceshot.emissionRate = 0.0f;
         icelance.emissionRate = 0.0f;
+        VargirlIsAlive = true;
 
 
         
@@ -83,16 +84,20 @@ public class GirlNavMovement : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        this.hp -= 1;
-        Debug.Log(hp);
-        if (hp <= 0)
+        if(other.transform != transform)
         {
-            VargirlIsAlive = false;
-            iceshot.emissionRate = 0.0f;
-            icelance.emissionRate = 0.0f;
-            anim.SetBool("girlIsAlive", false);
-            anim.SetBool("laufen", false);
+            this.hp -= 1;
+            Debug.Log(hp);
+            if (hp <= 0)
+            {
+                VargirlIsAlive = false;
+                iceshot.emissionRate = 0.0f;
+                icelance.emissionRate = 0.0f;
+                anim.SetBool("girlIsAlive", false);
+                anim.SetBool("laufen", false);
+            }
         }
+        
 
         
         

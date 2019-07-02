@@ -242,12 +242,11 @@ public class World : MonoBehaviour
 
 
         //add dragon
-        // Instantiate(dragon2);
+         //Instantiate(dragon2);
         dragon2.SetActive(true);
         Vector3 temp = new Vector3(9f, 81f, -7f);
-
         dragon2.transform.position = temp;
-
+        
 
         //add girl
         /* girl.SetActive(true);
