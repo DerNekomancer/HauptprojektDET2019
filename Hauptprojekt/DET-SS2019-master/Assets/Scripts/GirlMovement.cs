@@ -59,7 +59,7 @@ public class GirlMovement : MonoBehaviour
             {
                 transform.LookAt(Player);
             }
-            if (Vector3.Distance(transform.position, Player.position) <= 15 && anim.GetBool("attack") == false)
+            if (Vector3.Distance(transform.position, Player.position) <= 10 && anim.GetBool("attack") == false)
             {
                 anim.SetBool("laufen", true);
                 transform.Translate(0f, 0f, 5f * moveSpeed * Time.deltaTime);

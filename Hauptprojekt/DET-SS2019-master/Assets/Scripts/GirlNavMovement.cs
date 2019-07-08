@@ -15,6 +15,7 @@ public class GirlNavMovement : MonoBehaviour
     public int hp = 10;
     public ParticleSystem iceshot;
     public ParticleSystem icelance;
+    public GameObject dragon;
     float fireRate = 3.0f;
     float nextFire = 0.0f;
 
@@ -32,6 +33,7 @@ public class GirlNavMovement : MonoBehaviour
         iceshot.emissionRate = 0.0f;
         icelance.emissionRate = 0.0f;
         VargirlIsAlive = true;
+        //transform.GetComponent<GirlNavMovement>().enabled = false;
 
 
         
@@ -41,7 +43,43 @@ public class GirlNavMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*if (dragon.GetComponent<dragon>().makeGirlsActive)
+        {
+            GetComponent<GirlNavMovement>().enabled = true;
+            
+        }*/
+        if(!dragon.GetComponent<dragon>().isAlive)
+        {
+            Destroy(this);
+        }
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity))
+        {
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+            Debug.Log("GirlNavMovementRaycast");
+            
+                }
+        if (hit.collider != null && hit.collider != Player)
+        {
+            
+            if(transform.position.y < 20)
+            {
+                Debug.Log("Ich bin hier unten");
+            }
+            if (transform.position.y >= hit.point.y)
+            {
+                    transform.position = new Vector3(transform.position.x, hit.point.y+0.1f, transform.position.z);
+                    //transform.position += Vector3.down * Time.deltaTime;
+                }
+            if (transform.position.y <= hit.point.y)
+            {
+                transform.position = new Vector3(transform.position.x, hit.point.y+0.1f, transform.position.z);
+            }
 
+
+
+        }
+        
         if (VargirlIsAlive)
         {
             if (Vector3.Distance(transform.position, Player.position) < 20)

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BlondGirl : MonoBehaviour
 {
+
+    public GameObject player;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +15,9 @@ public class BlondGirl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(gameObject.active)
+        {
+         Vector3.MoveTowards(transform.position, player.transform.position,3);
+        }
     }
 }

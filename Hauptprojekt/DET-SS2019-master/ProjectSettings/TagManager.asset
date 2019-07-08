@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - dragonFire
   - RedKaduki
+  - BlackKaduki
   layers:
   - Default
   - TransparentFX
